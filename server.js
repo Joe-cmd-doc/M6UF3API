@@ -8,17 +8,17 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Connecta't a MongoDB (modifica l'URI amb la teva pròpia cadena de connexió)
-mongoose.connect('mongodb+srv://agarci9:Castellet25@cluster0.gc1mk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://joelortizrivas:aa1234aa@castellet.uxh5e.mongodb.net/?retryWrites=true&w=majority&appName=Castellet', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log('Error connecting to MongoDB:', err));
 
 // Definició del model de dades (un exemple simple d'un model de "Usuari")
-const userSchema = new mongoose.Schema({
+const animalSchema = new mongoose.Schema({
   name: String,
   email: String
 });
 
-const User = mongoose.model('User', userSchema);
+const Animal = mongoose.model('animals', animalSchema);
 
 
 app.post('/users', async (req, res) => {
@@ -37,6 +37,7 @@ app.post('/users', async (req, res) => {
     res.status(400).json({ message: 'Error creating user', error: err.message });
   }
 });
+
 
 // Ruta per obtenir tots els usuaris
 app.get('/users', async (req, res) => {
