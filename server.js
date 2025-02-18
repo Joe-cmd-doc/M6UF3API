@@ -12,29 +12,47 @@ mongoose.connect('mongodb+srv://joelortizrivas:aa1234aa@castellet.uxh5e.mongodb.
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log('Error connecting to MongoDB:', err));
 
-// Definició del model de dades (un exemple simple d'un model de "Usuari")
+  const caracteristiquesSchema = new mongoose.Schema({
+    longitud: String,
+    pes: String,
+    esperança_de_vida: String,
+  });
+
+// Definició del model de dades
 const animalSchema = new mongoose.Schema({
-  name: String,
-  email: String
+  nom_comu: String,
+  nom_cientific: String,
+  descripcio: String,
+  habitat: String,
+  dieta: String,
+  comportament: String,
+  caracteristiques: caracteristiquesSchema,
+  data_creacio: String,
 });
 
 const Animal = mongoose.model('animals', animalSchema);
 
 
-app.post('/users', async (req, res) => {
+app.post('/animals', async (req, res) => {
   /// res.status(200).json(req.body);
   // Check if request body is empty and fill with default values
-  if (!req.body.name || !req.body.email) {
-    req.body.name = req.body.name || "err";
-    req.body.email = req.body.email || "err";
+  if (!req.body.nom_comu || !req.body.nom_cientific || !req.body.descripcio || !req.body.habitat || !req.body.dieta || !req.body.comportament || !req.body.caracteristiques || !req.body.data_creacio) {
+    req.body.nom_comu = req.body.nom_comu || "err";
+    req.body.nom_cientific = req.body.nom_cientific || "err";
+    req.body.descripcio = req.body.descripcio || "err";
+    req.body.habitat = req.body.habitat || "err";
+    req.body.dieta = req.body.dieta || "err";
+    req.body.comportament = req.body.comportament || "err";
+    req.body.caracteristiques = req.body.caracteristiques || "err";
+    req.body.data_creacio = req.body.data_creacio || "err";
   }
 
   try {
-    const user = new User({ name: req.body.name, email: req.body.email });
-    await user.save();
+    const animal = new animal({ nom_comu: req.body.nom_comu, nom_cientific: req.body.nom_cientific, descripcio: req.body.descripcio, habitat: req.body.habitat, dieta: req.body.dieta, comportament: req.body.comportament, caracteristiques: req.body.caracteristiques, data_creacio: req.body.data_creacio });
+    await animal.save();
     res.status(201).json(user);
   } catch (err) {
-    res.status(400).json({ message: 'Error creating user', error: err.message });
+    res.status(400).json({ message: 'Error creating animal', error: err.message });
   }
 });
 
