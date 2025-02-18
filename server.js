@@ -69,7 +69,7 @@ app.get('/list', async (req, res) => {
 
 
 
-// Ruta per obtenir un usuari per ID
+// Ruta per obtenir animals per data
  app.get('/list/:datainici/:datafi', async (req, res) => {
   const { datainici, datafi} = req.params;
    try {
